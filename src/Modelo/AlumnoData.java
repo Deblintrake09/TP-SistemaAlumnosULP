@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import Entidades.Alumno;
@@ -26,7 +21,8 @@ public class AlumnoData {
     
     public void guardarAlumno(Alumno alumno)
     {
-    String query= "INSERT INTO alumno ('legajo','nombre','fechaNac','activo') "+"VALUES (?,?,?,?)";
+    //String query= "INSERT INTO alumno ('legajo','nombre','fechaNac','activo') "+"VALUES (?,?,?,?)";
+    String query= "INSERT INTO alumno ( legajo, nombre, fechaNac, activo) VALUES (?,?,?,?)";
     try
     {
     PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -50,7 +46,8 @@ public class AlumnoData {
     }
     catch(SQLException e)
     {
-        JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo guardar Alumno");
+        
+       JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo guardar Alumno");
         
     }
     try {
