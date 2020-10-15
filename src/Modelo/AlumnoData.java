@@ -21,7 +21,7 @@ public class AlumnoData {
     
     public void guardarAlumno(Alumno alumno)
     {
-    //String query= "INSERT INTO alumno ('legajo','nombre','fechaNac','activo') "+"VALUES (?,?,?,?)";
+    //String query= "INSERT INTO alumno ('legajo','nombre','fechaNac','activo') "+"VALUES (?,?,?,?)";//
     String query= "INSERT INTO alumno ( legajo, nombre, fechaNac, activo) VALUES (?,?,?,?)";
     try
     {
