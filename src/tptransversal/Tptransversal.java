@@ -5,6 +5,9 @@
  */
 package tptransversal;
 
+import Modelo.Conexion;
+import java.sql.Connection;
+
 /**
  *
  * @author jackd
@@ -15,7 +18,9 @@ public class Tptransversal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Conexion c = new Conexion();
+        Connection con = c.getConnection();
     }
     
 }
