@@ -57,7 +57,7 @@ public class AlumnoData {
     }
     
     
-    //Busca ali
+    //Busca Un alumno acorde al ID
     public Alumno buscarAlumno(int id)
     {
         Alumno alum = new Alumno();
