@@ -6,8 +6,10 @@
 package tptransversal;
 
 import Modelo.Conexion;
-import java.sql.Connection;
-
+import Entidades.Alumno;
+import java.time.LocalDate;
+import Modelo.AlumnoData;
+import java.time.Month;
 /**
  *
  * @author jackd
@@ -20,7 +22,12 @@ public class Tptransversal {
     public static void main(String[] args) {
         
         Conexion c = new Conexion();
-        Connection con = c.getConnection();
+        Alumno alum = new Alumno(30157082, "Andrés Micalizzi", LocalDate.of(1983, Month.APRIL, 8), true);
+        AlumnoData adata = new AlumnoData(c);
+        adata.guardarAlumno(alum);
+     
+        
+        
     }
     
 }

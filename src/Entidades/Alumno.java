@@ -36,7 +36,7 @@ public Alumno(int id, int leg, String nombre, LocalDate fn, boolean activo)
     this.activo=activo;
 }
 
-public Alumno(int leg, String nombre, LocalDate fn, boolean activo)
+public Alumno(int leg, String nombre, LocalDate fn, boolean activo) //Usar Este
 {
     this.legajo=leg;
     this.nombre=nombre;
