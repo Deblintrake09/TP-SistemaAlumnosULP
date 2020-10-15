@@ -82,6 +82,7 @@ public class AlumnoData {
             {
                 JOptionPane.showMessageDialog(null, "No se encontró el alumno con ID ingresado");
             }
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -109,6 +110,7 @@ public class AlumnoData {
             {
                 JOptionPane.showMessageDialog(null, "No se encontró el alumno con ID ingresado");
             }
+            con.close();
         }
         catch(SQLException e)
         {
