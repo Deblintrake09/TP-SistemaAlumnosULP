@@ -9,6 +9,8 @@ package Entidades;
 import java.time.LocalDate;
 
 public class Alumno {
+
+    
     
     private int id_alumno;
     private int legajo;
@@ -44,7 +46,6 @@ public Alumno(int leg, String nombre, LocalDate fn, boolean activo) //Usar Este
     this.activo=activo;
 }
 
-    
     public int getIdAlumno() {
         return id_alumno;
     }
@@ -85,5 +86,9 @@ public Alumno(int leg, String nombre, LocalDate fn, boolean activo) //Usar Este
         this.activo = activo;
     }
     
+    @Override
+    public String toString() {
+        return "Alumno{" + "id_alumno=" + id_alumno + ", legajo=" + legajo + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", activo=" + activo + '}';
+    }
     
 }
