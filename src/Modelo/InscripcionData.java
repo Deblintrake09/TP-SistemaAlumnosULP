@@ -147,9 +147,12 @@ public class InscripcionData
         Inscripcion insc = new Inscripcion();
         Alumno alum = new Alumno();
         Materia mate = new Materia();
+        
         ArrayList<Inscripcion> inscr = new ArrayList<>();
         
-        String query= "SELECT * FROM inscripcion";
+        String query= "SELECT inscripcion.id_inscripcion , alumno.nombre , materia.nombre, inscripcion.nota\n" +
+                      "FROM inscripcion,alumno,materia\n" +
+                      "WHERE inscripcion.id_alumno = alumno.id_alumno and inscripcion.id_materia = materia.id_materia";
         try
         {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -159,12 +162,24 @@ public class InscripcionData
             while(rs.next())
             {
                 insc.setIdInscripcion(rs.getInt(1));
-                alum.setIdAlumno(rs.getInt(2));
-                mate.setIdMateria(rs.getInt(3));
+                alum.setNombreAlumno(rs.getString(2));
+                mate.setNombre(rs.getString(3));
                 insc.setNota(rs.getFloat(4));
-                System.out.println(insc.getIdInscripcion());
+                System.out.print("ID Inscripción: ");
+                System.out.print(insc.getIdInscripcion());
+                System.out.println();
+                System.out.print("Nombre del alumno: ");
+                System.out.print(alum.getNombreAlumno());
+                System.out.println();
+                System.out.print("Nombre de la materia: ");
+                System.out.print(mate.getNombre());
+                System.out.println();
+                System.out.print("Nota: ");
+                System.out.print(insc.getNota());
+                System.out.println();
+                System.out.println("------------------------------------------");
                 inscr.add(insc);
-                
+            
             }
             con.close();
         }
@@ -173,6 +188,7 @@ public class InscripcionData
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return inscr;
+        
     }
     
 }
