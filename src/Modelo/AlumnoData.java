@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Modelo;
 
 import Entidades.Alumno;
@@ -30,7 +26,7 @@ public class AlumnoData {
         String query= "INSERT INTO alumno (legajo,nombre,fechaNac,activo) VALUES (?,?,?,?)";
         try
         {
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, alumno.getLegajo());
             ps.setString(2, alumno.getNombreAlumno());
             ps.setDate(3, Date.valueOf(alumno.getFechaNac()));
@@ -89,7 +85,8 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo Buscar");
         }
 
-        System.out.println(alum.getIdAlumno()+" "+alum.getNombreAlumno() + " " + alum.getLegajo() + " "+ alum.getFechaNac()+ " " + alum.isActivo());
+        System.out.println(alum.getIdAlumno()+" "+alum.getNombreAlumno() + " " 
+                + alum.getLegajo() + " "+ alum.getFechaNac()+ " " + alum.isActivo());
         return alum;
     }
     
@@ -125,6 +122,7 @@ public class AlumnoData {
         try
         {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
             ps.setInt(1, alumno.getLegajo());
             ps.setString(2, alumno.getNombreAlumno());
             ps.setDate(3, Date.valueOf(alumno.getFechaNac()));
@@ -132,7 +130,7 @@ public class AlumnoData {
             ps.setInt(5, alumno.getIdAlumno());
 
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             if(rs.next())
             {
                 JOptionPane.showMessageDialog(null, "No se pudo modificar - alumno no encontrado");

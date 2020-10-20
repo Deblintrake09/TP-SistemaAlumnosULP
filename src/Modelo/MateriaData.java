@@ -30,6 +30,7 @@ public class MateriaData {
             
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, materia.getNombre());
+            
             ps.executeUpdate();
             
             ResultSet rs=ps.getGeneratedKeys();

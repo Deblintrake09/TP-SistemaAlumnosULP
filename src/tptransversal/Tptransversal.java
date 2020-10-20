@@ -1,35 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tptransversal;
 
-import Modelo.Conexion;
-import Entidades.Alumno;
+import Modelo.*;
+import Entidades.*;
 import java.time.LocalDate;
 import Modelo.AlumnoData;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
-/**
- *
- * @author jackd
- */
-public class Tptransversal {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+public class Tptransversal 
+{
+    public static void main(String[] args) 
+    {
         
-        Conexion c = new Conexion();
-       
-        /* 
-        Alumno alum = new Alumno(32156561, "Juan Perez", LocalDate.of(1986, Month.JULY, 4), true);
-        AlumnoData adata = new AlumnoData(c);   
-        adata.guardarAlumno(alum);
-        */
+        
+//        Alumno alum = new Alumno(23066666, "Correa Claudio", LocalDate.of(1980, Month.JANUARY,25), true);
+//        AlumnoData adata = new AlumnoData(new Conexion());   
+//        adata.guardarAlumno(alum);
+//        
+//        Materia mat = new Materia("Geografía 1");
+//        MateriaData mdata = new MateriaData(new Conexion());
+//        mdata.cargarMateria(mat);
+        
+//        Inscripcion insc = new Inscripcion(alum,mat,10);
+//        InscripcionData idata = new InscripcionData(new Conexion());
+//        idata.guardarInscripcion(insc);
+        
+        //idata.buscarInscripcion(2);
+        //idata.borrarInscripcion(2);
+        
+//        Inscripcion insc = new Inscripcion(23);
+//        InscripcionData idata = new InscripcionData(new Conexion());
+//        idata.actualizarNota(insc,1);
+//        Inscripcion in = new Inscripcion();
+//        InscripcionData idata = new InscripcionData(new Conexion());
+//        idata.obtenerInscripciones();
         
 
         //AlumnoData adata = new AlumnoData(c);   
@@ -43,14 +49,14 @@ public class Tptransversal {
         adata2.actualizarAlumno(alum2);
         */
        
-       AlumnoData adata2 = new AlumnoData(new Conexion());
+       /*AlumnoData adata2 = new AlumnoData(new Conexion());
         ArrayList<Alumno> alumnos= adata2.obtenerAlumnos();
         Iterator iter = alumnos.iterator();
         while(iter.hasNext())
         {
             iter.next().toString();
         }
-        
+        */
     }
     
 }
