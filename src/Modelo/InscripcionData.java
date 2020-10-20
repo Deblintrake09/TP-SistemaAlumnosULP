@@ -162,8 +162,9 @@ public class InscripcionData
                 alum.setIdAlumno(rs.getInt(2));
                 mate.setIdMateria(rs.getInt(3));
                 insc.setNota(rs.getFloat(4));
-                System.out.println(insc.getAlumno());
+                System.out.println(insc.getIdInscripcion());
                 inscr.add(insc);
+                
             }
             con.close();
         }

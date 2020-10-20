@@ -18,11 +18,11 @@ public class Tptransversal
 //        Alumno alum = new Alumno(23066666, "Correa Claudio", LocalDate.of(1980, Month.JANUARY,25), true);
 //        AlumnoData adata = new AlumnoData(new Conexion());   
 //        adata.guardarAlumno(alum);
-//        
+////        
 //        Materia mat = new Materia("Geografía 1");
 //        MateriaData mdata = new MateriaData(new Conexion());
 //        mdata.cargarMateria(mat);
-        
+//        
 //        Inscripcion insc = new Inscripcion(alum,mat,10);
 //        InscripcionData idata = new InscripcionData(new Conexion());
 //        idata.guardarInscripcion(insc);
@@ -34,8 +34,8 @@ public class Tptransversal
 //        InscripcionData idata = new InscripcionData(new Conexion());
 //        idata.actualizarNota(insc,1);
 //        Inscripcion in = new Inscripcion();
-//        InscripcionData idata = new InscripcionData(new Conexion());
-//        idata.obtenerInscripciones();
+        InscripcionData idata = new InscripcionData(new Conexion());
+        idata.obtenerInscripciones();
         
 
         //AlumnoData adata = new AlumnoData(c);   
@@ -57,6 +57,21 @@ public class Tptransversal
             iter.next().toString();
         }
         */
+        
+        //Alumno al = new Alumno(28);
+        //AlumnoData adata2 = new AlumnoData(new Conexion());
+        //al = adata2.buscarAlumno(29);
+        //Materia ma = new Materia(28);
+        //MateriaData mdata2 = new MateriaData(new Conexion());
+        
+//        Inscripcion in = new Inscripcion(al,ma,58);
+//        InscripcionData idata2 = new InscripcionData(new Conexion());
+//        idata2.guardarInscripcion(in);
+        
+        
+        
+        //System.out.println(al);
+        
     }
     
 }
