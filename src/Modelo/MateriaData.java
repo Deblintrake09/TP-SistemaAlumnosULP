@@ -6,8 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;;
-import java.util.List;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 
@@ -24,10 +23,16 @@ public class MateriaData {
     
     public void cargarMateria(Materia materia){
         
-        String query = "INSERT INTO materia(nombre) VALUES (?)";
-        
         try {
-            
+            //comprobar que no se ingresen dos materias con el mismo nombre
+            String sql="SELECT * FROM materia WHERE nombre = ?";
+            PreparedStatement psi = con.prepareStatement(sql);
+            psi.setString(1, materia.getNombre());
+            psi.executeQuery();
+            ResultSet rsl = psi.getResultSet();
+            //si no hay ninguna, la crea
+            if(!rsl.next()){
+            String query = "INSERT INTO materia(nombre) VALUES (?)";
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, materia.getNombre());
             
@@ -44,6 +49,11 @@ public class MateriaData {
             
             con.close();
             
+            }
+            //si esta, salta el JOptionPane con el mensaje
+            else{
+                JOptionPane.showMessageDialog(null, "Materia del mismo nombre en Base de datos");
+            }
         } 
         catch (SQLException e){
             
@@ -66,7 +76,7 @@ public class MateriaData {
     
     public Materia buscarMateria(int id){
         
-        Materia matter= new Materia(); 
+        Materia matter= null; 
         
         String query = "SELECT * FROM materia WHERE id_materia = ?";
         
@@ -77,7 +87,7 @@ public class MateriaData {
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                 
+                matter = new Materia();
                 matter.setIdMateria(rs.getInt(1));
                 matter.setNombre(rs.getString(2));
                 
@@ -90,7 +100,7 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "No pudo encontrar la materia");
         
         }
-        System.out.println(matter.toString());
+        System.out.println(matter);
         return matter;
     }
     
@@ -118,7 +128,7 @@ public class MateriaData {
     
     public List<Materia> mostrarMaterias(){
         
-        Materia matter = new Materia();
+        Materia matter = null;
         
         List<Materia> materias = new ArrayList <>();
         
@@ -130,10 +140,9 @@ public class MateriaData {
             ResultSet rs = ps.executeQuery();
             
              while(rs.next()){ 
-                 
+                matter = new Materia();
                 matter.setIdMateria(rs.getInt(1));
                 matter.setNombre(rs.getString(2));
-                System.out.println(matter.getNombre());
                 materias.add(matter);
             }
  
@@ -144,6 +153,9 @@ public class MateriaData {
             
             JOptionPane.showMessageDialog(null, "No pudo encontrar materias");
             
+        }
+        for(Iterator it = materias.iterator(); it.hasNext();){
+            System.out.println(it.next());
         }
         
         return materias;
