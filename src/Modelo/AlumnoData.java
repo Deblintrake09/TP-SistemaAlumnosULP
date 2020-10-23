@@ -96,9 +96,6 @@ public class AlumnoData {
         {
             JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo Buscar");
         }
-
-        System.out.println(alum.getIdAlumno()+" "+alum.getNombreAlumno() + " " 
-                + alum.getLegajo() + " "+ alum.getFechaNac()+ " " + alum.isActivo());
         return alum;
     }
     
@@ -158,7 +155,7 @@ public class AlumnoData {
     
     public ArrayList<Alumno> obtenerAlumnos()
     {
-        Alumno al= new Alumno();
+        Alumno al;
         ArrayList<Alumno> alumnos = new ArrayList<>();
         
         String query= "SELECT * FROM alumno";
@@ -170,12 +167,12 @@ public class AlumnoData {
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
+                al=new Alumno();
                 al.setIdAlumno(rs.getInt(1));
                 al.setLegajo(rs.getInt(2));
                 al.setNombreAlumno(rs.getString(3));
                 al.setFechaNac(rs.getDate(4).toLocalDate());
                 al.setActivo(rs.getBoolean(5));
-                System.out.println(al.getNombreAlumno());
                 alumnos.add(al);
             }
             ps.close();

@@ -14,12 +14,14 @@ public class Tptransversal
 {    
     public static void main(String[] args) 
     {
-        
+    
+        AlumnoData adata = new AlumnoData(new Conexion());   
+   
      //Creamos un Alumo y lo guardamos
       Alumno alum = new Alumno(23066666, "Correa Claudio", LocalDate.of(1980, Month.JANUARY,25), true);
-      alum.toString();
-      AlumnoData adata = new AlumnoData(new Conexion());   
-      adata.guardarAlumno(alum);
+      alum.toString();   //El alumno ahora tiene ID
+    
+      /*  adata.guardarAlumno(alum);
       
       //borramos el alumno que acabamos de crear usando su ID (que es guardado en el alumno cuando se lo carga
       adata.borrarAlumno(alum.getIdAlumno());
@@ -42,13 +44,13 @@ public class Tptransversal
       adata.guardarAlumno(alum);
       alum = new Alumno(36759874, "Gabriela Gutierrez", LocalDate.of(1990, Month.JUNE,6), false);
       adata.guardarAlumno(alum);
-      
+
       ArrayList<Alumno> alumnos= adata.obtenerAlumnos();
-        Iterator iter = alumnos.iterator();
-        while(iter.hasNext())
+        for(int i=0;i<alumnos.size();i++)
         {
-            iter.next().toString();
-        }
+            System.out.println(alumnos.get(i).toString());
+        }        
+
             
 // MATERIAS        
        Materia mat = new Materia("Matemática 1");
@@ -69,8 +71,8 @@ public class Tptransversal
        mat = new Materia("Programación Web");
        mdata.cargarMateria(mat);
        
-       Materia mat2 = mdata.buscarMateria(3);
-       System.out.println(mat2.toString());
+//       Materia mat2 = mdata.buscarMateria(3);
+  //     System.out.println(mat2.toString());
         
         List<Materia> materias= mdata.mostrarMaterias();
         iter = materias.iterator();
@@ -104,5 +106,7 @@ public class Tptransversal
             iter.next().toString();
         }              
     }
-    
+    */
+    }
 }
+    
