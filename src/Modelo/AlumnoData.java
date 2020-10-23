@@ -23,33 +23,45 @@ public class AlumnoData {
     
     public void guardarAlumno(Alumno alumno)
     {
-        String query= "INSERT INTO alumno (legajo,nombre,fechaNac,activo) VALUES (?,?,?,?)";
+        
         try
-        {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, alumno.getLegajo());
-            ps.setString(2, alumno.getNombreAlumno());
-            ps.setDate(3, Date.valueOf(alumno.getFechaNac()));
-            ps.setBoolean(4, alumno.isActivo());
-
-            ps.executeUpdate();
-
-
-            ResultSet rs=ps.getGeneratedKeys();
-            if(rs.next())
+        {  
+        String sql="SELECT * FROM alumno WHERE legajo = ?";
+            PreparedStatement psi = con.prepareStatement(sql);
+            psi.setInt(1, alumno.getLegajo());
+            psi.executeQuery();
+            ResultSet rsl = psi.getResultSet();
+            //si no hay ninguna, la
+            if(!rsl.next())
             {
-                alumno.setIdAlumno(rs.getInt(1));
-            }else
+                String query= "INSERT INTO alumno (legajo,nombre,fechaNac,activo) VALUES (?,?,?,?)";
+                PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, alumno.getLegajo());
+                ps.setString(2, alumno.getNombreAlumno());
+                ps.setDate(3, Date.valueOf(alumno.getFechaNac()));
+                ps.setBoolean(4, alumno.isActivo());
+
+                ps.executeUpdate();
+
+
+                ResultSet rs=ps.getGeneratedKeys();
+                if(rs.next())
+                {
+                    alumno.setIdAlumno(rs.getInt(1));
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "No pudo Obtener ID");
+                }
+                ps.close();
+            }else 
             {
-                JOptionPane.showMessageDialog(null, "No pudo Obtener ID");
+                JOptionPane.showMessageDialog(null, "El alumno ya se encuentra cargado con ID N° " + rsl.getString(1));
             }
-            con.close();
         }
         catch(SQLException e)
         {
             JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo guardar Alumno");
         }
-       
     }
     
     
@@ -107,7 +119,7 @@ public class AlumnoData {
             {
                 JOptionPane.showMessageDialog(null, "No se encontró el alumno con ID ingresado");
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -135,7 +147,7 @@ public class AlumnoData {
             {
                 JOptionPane.showMessageDialog(null, "No se pudo modificar - alumno no encontrado");
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -166,7 +178,7 @@ public class AlumnoData {
                 System.out.println(al.getNombreAlumno());
                 alumnos.add(al);
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {

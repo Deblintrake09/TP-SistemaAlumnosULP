@@ -50,7 +50,6 @@ public class MateriaData {
             
         }
     }
- 
     //Buscar una materia por ID.
     
     public Materia buscarMateria(int id){

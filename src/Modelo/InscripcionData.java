@@ -2,12 +2,12 @@ package Modelo;
 
 import java.sql.Connection;
 import Entidades.*;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class InscripcionData 
@@ -21,6 +21,7 @@ public class InscripcionData
     
     public void guardarInscripcion(Inscripcion inscripcion)
     {
+        
         String query= "INSERT INTO inscripcion (id_inscripcion,id_alumno,id_materia,nota) VALUES (?,?,?,?)";
         try
         {
@@ -42,7 +43,7 @@ public class InscripcionData
             {
                 JOptionPane.showMessageDialog(null, "No pudo Obtener ID");
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -51,7 +52,7 @@ public class InscripcionData
     }
     
     
-    public void buscarInscripcion(int id)
+    public Inscripcion buscarInscripcion(int id)
     {
         Inscripcion insc = new Inscripcion();
         Alumno alum = new Alumno();
@@ -61,11 +62,7 @@ public class InscripcionData
         try
         {
             PreparedStatement ps = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-            
-            
-            ps.setInt(1, id);
-            
-                
+            ps.setInt(1, id);    
             ResultSet rs=ps.executeQuery();
         
             if(rs.next())
@@ -88,7 +85,7 @@ public class InscripcionData
 
         System.out.println("Número de incripción: " + insc.getIdInscripcion()
                 + " - id alumno: " + alum.getIdAlumno() + " - id materia: " + mate.getIdMateria() + " - con nota: "+(int)insc.getNota());
-        
+        return insc;
     }
     
     
@@ -107,7 +104,7 @@ public class InscripcionData
             {
                 JOptionPane.showMessageDialog(null, "No se pudo borrar la inscripción con ID ingresado");
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -133,7 +130,7 @@ public class InscripcionData
             {
                 JOptionPane.showMessageDialog(null, "No se pudo actualizar la nota");
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -181,7 +178,7 @@ public class InscripcionData
                 inscr.add(insc);
             
             }
-            con.close();
+            ps.close();
         }
         catch(SQLException e)
         {
@@ -189,6 +186,93 @@ public class InscripcionData
         }
         return inscr;
         
+    }
+    
+    
+    public List <Inscripcion> buscarInscripcionPorAlumno(int id){
+        ArrayList<Inscripcion> inscpAl = new ArrayList<>();
+        Inscripcion insc = null;
+                
+        String query= "SELECT * FROM inscripcion WHERE inscripcion.id_alumno = ?";
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, id);
+            
+            ResultSet rs=ps.executeQuery();
+        
+            while(rs.next())
+            {
+                insc=new Inscripcion();
+                insc.setIdInscripcion(rs.getInt(1));
+                Alumno a= buscarAlumno(rs.getInt(2));
+                Materia m = buscarMateria(rs.getInt(3));
+                insc.setAlumno(a);
+                insc.setMateria(m);
+                insc.setNota(rs.getFloat(4));    
+                inscpAl.add(insc);
+            }    
+            
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo Buscar " + e);
+        }
+        
+        return inscpAl;
+        
+    }
+        public List <Inscripcion> buscarInscripcionPorMateria(int id){
+        ArrayList<Inscripcion> inscpAl = new ArrayList<>();
+        Inscripcion insc = null;
+                
+        String query= "SELECT * FROM inscripcion WHERE inscripcion.id_materia = ?";
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            
+            
+            ps.setInt(1, id);
+            
+                
+            ResultSet rs=ps.executeQuery();
+        
+            while(rs.next())
+            {
+                insc=new Inscripcion();
+                insc.setIdInscripcion(rs.getInt(1));
+                Alumno a= buscarAlumno(rs.getInt(2));
+                Materia m = buscarMateria(rs.getInt(3));
+                insc.setAlumno(a);
+                insc.setMateria(m);
+                insc.setNota(rs.getFloat(4));    
+                inscpAl.add(insc);
+            }    
+            
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Error de Conexión - No se pudo Buscar " + e);
+        }
+        
+        return inscpAl;
+        
+    }
+        
+     public Alumno buscarAlumno(int id){
+        Conexion c = new Conexion();
+        AlumnoData  ad = new AlumnoData(c);
+        return ad.buscarAlumno(id);
+    
+    }
+    
+    public Materia buscarMateria(int id){
+        Conexion c = new Conexion();
+        MateriaData  ad = new MateriaData(c);
+        return ad.buscarMateria(id);
     }
     
 }
