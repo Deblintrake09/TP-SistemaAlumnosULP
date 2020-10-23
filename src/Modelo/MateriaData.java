@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 
 public class MateriaData {
-    private Connection con;
+    private Connection con=null;
 
     public MateriaData(Conexion con) {
         
@@ -23,16 +23,10 @@ public class MateriaData {
     
     public void cargarMateria(Materia materia){
         
+        String query = "INSERT INTO materia(nombre) VALUES (?)";
+        
         try {
-            //comprobar que no se ingresen dos materias con el mismo nombre
-            String sql="SELECT * FROM materia WHERE nombre = ?";
-            PreparedStatement psi = con.prepareStatement(sql);
-            psi.setString(1, materia.getNombre());
-            psi.executeQuery();
-            ResultSet rsl = psi.getResultSet();
-            //si no hay ninguna, la crea
-            if(!rsl.next()){
-            String query = "INSERT INTO materia(nombre) VALUES (?)";
+  
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, materia.getNombre());
             
@@ -47,31 +41,16 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "No pudo obtener ID de la materia");
             }
             
-            con.close();
-            
-            }
-            //si esta, salta el JOptionPane con el mensaje
-            else{
-                JOptionPane.showMessageDialog(null, "Materia del mismo nombre en Base de datos");
-            }
-        } 
-        catch (SQLException e){
+            ps.close();
+
+            } 
+            catch (SQLException e){
             
             JOptionPane.showMessageDialog(null, "No pudo cargar la materia a la base de datos");
             
         }
-        
-        try {
-            
-            con.close();
-            
-        } 
-        catch (SQLException e){
-            
-            JOptionPane.showMessageDialog(null, "Error de conexión - No pudo cerrar la conexión");
-        }
     }
-    
+ 
     //Buscar una materia por ID.
     
     public Materia buscarMateria(int id){
@@ -93,14 +72,14 @@ public class MateriaData {
                 
             }
             
-            con.close();
+            ps.close();
             
         } catch (SQLException e){
             
             JOptionPane.showMessageDialog(null, "No pudo encontrar la materia");
         
         }
-        System.out.println(matter);
+        
         return matter;
     }
     
@@ -115,7 +94,7 @@ public class MateriaData {
             ps.setInt(1, id);
             ps.executeUpdate();
             
-            con.close();
+            ps.close();
             
         } catch (SQLException e){
             
@@ -146,16 +125,13 @@ public class MateriaData {
                 materias.add(matter);
             }
  
-            con.close();
+            ps.close();
             
         } 
         catch (SQLException e){
             
             JOptionPane.showMessageDialog(null, "No pudo encontrar materias");
             
-        }
-        for(Iterator it = materias.iterator(); it.hasNext();){
-            System.out.println(it.next());
         }
         
         return materias;
@@ -180,6 +156,7 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "No pudo modificar");
                 
             }
+            ps.close();
             
         } catch (SQLException e) {
             
