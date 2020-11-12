@@ -88,8 +88,7 @@ public Alumno(int leg, String nombre, LocalDate fn, boolean activo) //Usar Este
     
     @Override
     public String toString() {
-        return "Alumno{" + "id_alumno=" + id_alumno + ", legajo=" + legajo 
-                + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", activo=" + activo + '}';
+        return id_alumno+" - "+ nombre;
     }
     
 }

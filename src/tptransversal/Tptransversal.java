@@ -14,6 +14,14 @@ public class Tptransversal
 {    
     public static void main(String[] args) 
     {
+        
+    /*  escritorio.removeAll();
+        escritorio.repaint();
+        VistaMaterias vm=new VistaMaterias();
+        vm.setVisible(true);
+        escritorio.add(vm);
+        escritorio.moveToFront(vm);
+    */
     
         AlumnoData adata = new AlumnoData(new Conexion());   
    

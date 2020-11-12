@@ -262,6 +262,83 @@ public class InscripcionData
         
     }
         
+    public List<Materia> obtenerMateriasCursadas(int id){
+        List<Materia> materias = new ArrayList<Materia>();        
+
+        try {
+            String sql = "SELECT materia.id_materia, nombre FROM inscripcion, materia WHERE inscripcion.id_materia = materia.id_materia\n " +
+                            "and inscripcion.id_alumno = ?;";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            Materia materia;
+            while(resultSet.next()){
+                materia = new Materia();
+                materia.setIdMateria(resultSet.getInt("id_materia"));
+                materia.setNombre(resultSet.getString("nombre"));
+                materias.add(materia);
+            }      
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener materias: " + ex.getMessage());
+        }
+        
+        
+        return materias;
+      
+    }
+    
+    public List<Materia> obtenerMateriasNOCursadas(int id){
+    List<Materia> materias = new ArrayList<Materia>();
+            
+
+        try {
+            String sql = "Select * from materia where id_materia not in (select id_materia from inscripcion where id_alumno =?)";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            Materia materia;
+            while(resultSet.next()){
+                materia = new Materia();
+                materia.setIdMateria(resultSet.getInt("id_materia"));
+                materia.setNombre(resultSet.getString("nombre"));
+                materias.add(materia);
+            }      
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener materias: " + ex.getMessage());
+        }
+        
+        
+        return materias;
+      
+    }
+    
+    
+    
+    public void borrarCursadaDeUnaMateriaDeunAlumno(int idAlumno,int idMateria){
+    
+        try {
+            
+            String sql = "DELETE FROM inscripcion WHERE id_alumno =? and id_materia =?;";
+
+            PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, idAlumno);
+            statement.setInt(2, idMateria);
+
+            statement.executeUpdate();
+            
+            statement.close();
+    
+        } catch (SQLException ex) {
+            System.out.println("Error eliminar inscripcion: " + ex.getMessage());
+        }
+        
+    }
+        
+        
+        
+        
      public Alumno buscarAlumno(int id){
         Conexion c = new Conexion();
         AlumnoData  ad = new AlumnoData(c);
