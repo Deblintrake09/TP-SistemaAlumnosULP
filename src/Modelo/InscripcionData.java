@@ -336,7 +336,25 @@ public class InscripcionData
         
     }
         
-        
+       public void actualizarNotaCursada(int idAlumno,int idMateria, float nota){
+    
+        try {
+            String sql = "UPDATE inscripcion SET nota = ? WHERE id_alumno =? AND id_materia =?";
+
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setFloat(1,nota);
+            ps.setInt(2, idAlumno);
+            ps.setInt(3, idMateria);
+                       
+            ps.executeUpdate();
+            
+            ps.close();
+    
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar nota");
+        }
+     } 
         
         
      public Alumno buscarAlumno(int id){
