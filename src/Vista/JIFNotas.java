@@ -150,9 +150,9 @@ public class JIFNotas extends javax.swing.JInternalFrame {
             int fila = (Integer)jTNotas.getSelectedRow();
         if(jCBAlumnos.getSelectedItem()!=null){
             al = (Alumno)jCBAlumnos.getSelectedItem();
-            int id= (Integer)modelo.getValueAt(fila, 0);
+            //int id= (Integer)modelo.getValueAt(fila, 0);
             mat = (Materia)modelo.getValueAt(fila, 1);
-            float nota = (Float)modelo.getValueAt(fila, 2);
+            float nota = Float.valueOf(modelo.getValueAt(fila, 2).toString());
             
             indta.actualizarNotaCursada(al.getIdAlumno(), mat.getIdMateria(), nota);
             borrarFilas();
@@ -202,7 +202,7 @@ public class JIFNotas extends javax.swing.JInternalFrame {
     private void cargarDatos(){
         borrarFilas();
         Alumno alumno = (Alumno)jCBAlumnos.getSelectedItem();
-        listaIns = (List)indta.buscarInscripcionPorAlumno(alumno.getIdAlumno());
+        listaIns = indta.buscarInscripcionPorAlumno(alumno.getIdAlumno());
         for(Inscripcion i: listaIns){
             modelo.addRow(new Object[]{i.getIdInscripcion(),i.getMateria(), i.getNota()});
         }
